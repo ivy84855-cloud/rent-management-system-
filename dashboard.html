@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rent Management Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <h1>Rent Management System</h1>
+    <h3>Welcome Admin</h3>
+
+    <div class="stats">
+
+        <div class="card">
+            <h2 id="totalTenants">0</h2>
+            <p>Total Tenants</p>
+        </div>
+
+        <div class="card">
+            <h2 id="totalPayments">0</h2>
+            <p>Total Payments</p>
+        </div>
+
+        <div class="card">
+            <h2 id="totalRent">Ksh 0</h2>
+            <p>Total Rent Collected</p>
+        </div>
+
+    </div>
+
+    <div class="menu">
+<button onclick="location.href='houses.html'">
+    Houses
+</button>
+        <button onclick="location.href='tenant.html'">
+            Tenants
+        </button>
+
+        <button onclick="location.href='payment.html'">
+            Payments
+        </button>
+
+        <button onclick="location.href='reports.html'">
+            Reports
+        </button>
+
+        <button onclick="logout()">
+            Logout
+        </button>
+
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+
+<script>
+
+let tenants = JSON.parse(localStorage.getItem("tenants")) || [];
+let payments = JSON.parse(localStorage.getItem("payments")) || [];
+
+document.getElementById("totalTenants").innerHTML = tenants.length;
+document.getElementById("totalPayments").innerHTML = payments.length;
+
+let totalRent = 0;
+
+payments.forEach(function(payment){
+    totalRent += Number(payment.amount);
+});
+
+document.getElementById("totalRent").innerHTML = "Ksh " + totalRent;
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Rent Management Reports</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>Rent Management Reports</h2>
+
+    <input type="text" id="search" placeholder="Search tenant..." onkeyup="searchTenant()">
+
+    <h3>Tenant Reports</h3>
+
+    <table border="1">
+        <tr>
+            <th>Name</th>
+            <th>Phone</th>
+            <th>House</th>
+            <th>Rent</th>
+            <th>Action</th>
+        </tr>
+
+        <tbody id="tenantTable"></tbody>
+
+    </table>
+
+    <br><br>
+
+    <h3>Payment Reports</h3>
+
+    <table border="1">
+        <tr>
+            <th>Tenant</th>
+            <th>House</th>
+            <th>Amount</th>
+            <th>Date</th>
+            <th>Action</th>
+        </tr>
+
+        <tbody id="paymentTable"></tbody>
+
+    </table>
+
+    <br>
+
+    <button onclick="location.href='dashboard.html'">
+        Back to Dashboard
+    </button>
+
+</div>
+
+<script>
+let tenants = JSON.parse(localStorage.getItem("tenants")) || [];
+let payments = JSON.parse(localStorage.getItem("payments")) || [];
+
+let tenantTable = document.getElementById("tenantTable");
+let paymentTable = document.getElementById("paymentTable");
+
+function displayTenants() {
+    tenantTable.innerHTML = "";
+
+    tenants.forEach(function(tenant, index) {
+        tenantTable.innerHTML += `
+        <tr>
+            <td>${tenant.name}</td>
+            <td>${tenant.phone}</td>
+            <td>${tenant.house}</td>
+            <td>${tenant.rent}</td>
+            <td>
+                <button onclick="updateTenant(${index})">Update</button>
+                <button onclick="deleteTenant(${index})">Delete</button>
+            </td>
+        </tr>`;
+    });
+}
+
+function displayPayments() {
+    paymentTable.innerHTML = "";
+
+    payments.forEach(function(payment, index) {
+        paymentTable.innerHTML += `
+        <tr>
+            <td>${payment.tenantName}</td>
+            <td>${payment.houseNumber}</td>
+            <td>Ksh ${payment.amount}</td>
+            <td>${payment.date}</td>
+            <td>
+                <button onclick="updatePayment(${index})">Update</button>
+                <button onclick="deletePayment(${index})">Delete</button>
+            </td>
+        </tr>`;
+    });
+}
+
+function deleteTenant(index) {
+    tenants.splice(index, 1);
+    localStorage.setItem("tenants", JSON.stringify(tenants));
+    displayTenants();
+}
+
+function updateTenant(index) {
+    tenants[index].name = prompt("Tenant Name", tenants[index].name);
+    tenants[index].phone = prompt("Phone", tenants[index].phone);
+    tenants[index].house = prompt("House", tenants[index].house);
+    tenants[index].rent = prompt("Rent", tenants[index].rent);
+
+    localStorage.setItem("tenants", JSON.stringify(tenants));
+    displayTenants();
+}
+
+function deletePayment(index) {
+    payments.splice(index, 1);
+    localStorage.setItem("payments", JSON.stringify(payments));
+    displayPayments();
+}
+
+function updatePayment(index) {
+    payments[index].tenantName = prompt("Tenant Name", payments[index].tenantName);
+    payments[index].houseNumber = prompt("House Number", payments[index].houseNumber);
+    payments[index].amount = prompt("Amount", payments[index].amount);
+    payments[index].date = prompt("Date", payments[index].date);
+
+    localStorage.setItem("payments", JSON.stringify(payments));
+    displayPayments();
+}
+
+function searchTenant() {
+    let input = document.getElementById("search").value.toLowerCase();
+    let rows = tenantTable.getElementsByTagName("tr");
+
+    for (let i = 0; i < rows.length; i++) {
+        let text = rows[i].textContent.toLowerCase();
+        rows[i].style.display = text.includes(input) ? "" : "none";
+    }
+}
+
+displayTenants();
+displayPayments();
+</script>
+
+</body>
+</html>

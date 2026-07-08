@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment Receipt</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>Rent Payment Receipt</h2>
+
+    <p><strong>Tenant:</strong> <span id="tenant"></span></p>
+
+    <p><strong>House Number:</strong> <span id="house"></span></p>
+
+    <p><strong>Amount Paid:</strong> Ksh <span id="amount"></span></p>
+
+    <p><strong>Payment Date:</strong> <span id="date"></span></p>
+
+    <br>
+
+    <button onclick="window.print()">Print Receipt</button>
+
+    <button onclick="location.href='dashboard.html'">
+        Back to Dashboard
+    </button>
+
+</div>
+
+<script>
+let payments = JSON.parse(localStorage.getItem("payments")) || [];
+
+if(payments.length > 0){
+
+    let lastPayment = payments[payments.length - 1];
+
+    document.getElementById("tenant").innerHTML = lastPayment.tenantName;
+    document.getElementById("house").innerHTML = lastPayment.houseNumber;
+    document.getElementById("amount").innerHTML = lastPayment.amount;
+    document.getElementById("date").innerHTML = lastPayment.date;
+}
+</script>
+
+</body>
+</html>

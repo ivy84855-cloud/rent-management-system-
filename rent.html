@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rental Management System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>🏠 Rental Management System</h1>
+
+    <!-- Dashboard -->
+    <div class="dashboard">
+
+        <div class="card">
+            <h3>Total Tenants</h3>
+            <p id="totalTenants">0</p>
+        </div>
+
+        <div class="card">
+            <h3>Paid</h3>
+            <p id="paidTenants">0</p>
+        </div>
+
+        <div class="card">
+            <h3>Unpaid</h3>
+            <p id="unpaidTenants">0</p>
+        </div>
+
+    </div>
+
+    <!-- Tenant Form -->
+    <form id="rentForm">
+
+        <label>Tenant Name</label>
+        <input type="text" id="name" required>
+
+        <label>Phone Number</label>
+        <input type="tel" id="phone" required>
+
+        <label>House Number</label>
+        <input type="text" id="house" required>
+
+        <label>Monthly Rent (KSh)</label>
+        <input type="number" id="rent" required>
+
+        <button type="submit">Save Tenant</button>
+
+    </form>
+
+    <p id="message"></p>
+
+    <h2>Search Tenant</h2>
+
+    <input type="text" id="searchInput" placeholder="Search by tenant name or house number...">
+
+    <h2>Registered Tenants</h2>
+
+    <table id="tenantTable">
+
+        <thead>
+
+            <tr>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>House</th>
+                <th>Rent</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+        </tbody>
+
+    </table>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
